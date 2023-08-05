@@ -12,15 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "./data-table-view-options";
 
-import {
-  sets,
-  editions,
-  priorities,
-  statuses,
-  registered,
-  product,
-  discovered,
-} from "@/data/data";
+import { crafts } from "@/data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import {
   DropdownMenu,
@@ -43,13 +35,13 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex items-center justify-between gap-2 overflow-x-auto">
+    <div className="flex items-center justify-between gap-2">
       <div className="flex items-center flex-1 space-x-2">
         <Input
-          placeholder="Filter cards..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter astronauts..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
@@ -60,34 +52,34 @@ export function DataTableToolbar<TData>({
             options={statuses}
           />
         )} */}
-        {table.getColumn("set") && (
+        {table.getColumn("craft") && (
           <DataTableFacetedFilter
-            column={table.getColumn("set")}
-            title="Set"
-            options={sets}
+            column={table.getColumn("craft")}
+            title="Crafts"
+            options={crafts}
           />
         )}
-        {table.getColumn("edition") && (
+        {/* {table.getColumn("edition") && (
           <DataTableFacetedFilter
             column={table.getColumn("edition")}
             title="Edition"
             options={editions}
           />
-        )}
-        {table.getColumn("registered") && (
+        )} */}
+        {/* {table.getColumn("registered") && (
           <DataTableFacetedFilter
             column={table.getColumn("registered")}
             title="Status"
             options={discovered}
           />
-        )}
-        {table.getColumn("product") && (
+        )} */}
+        {/* {table.getColumn("product") && (
           <DataTableFacetedFilter
             column={table.getColumn("product")}
             title="Type"
             options={product}
           />
-        )}
+        )} */}
         {/* {table.getColumn("priority") && (
           <DataTableFacetedFilter
             column={table.getColumn("priority")}
@@ -120,17 +112,17 @@ export function DataTableToolbar<TData>({
             <DropdownMenuSeparator />
             <DropdownMenuCheckboxItem
               className="capitalize"
-              checked={layout[0] === "Grid"}
-              onCheckedChange={(value) => layout[1]("Grid")}
-            >
-              Grid
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              className="capitalize"
               checked={layout[0] === "Table"}
               onCheckedChange={(value) => layout[1]("Table")}
             >
               Table
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              className="capitalize"
+              checked={layout[0] === "Grid"}
+              onCheckedChange={(value) => layout[1]("Grid")}
+            >
+              Grid
             </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>

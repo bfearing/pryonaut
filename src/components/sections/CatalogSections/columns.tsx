@@ -3,14 +3,14 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { sets, editions, labels, priorities, statuses } from "@/data/data";
-import { Task } from "@/data/schema";
+import { crafts } from "@/data/data";
+import { People } from "@/data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
 import Image from "next/image";
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<People>[] = [
   // {
   //   id: "select",
   //   header: ({ table }) => (
@@ -41,32 +41,50 @@ export const columns: ColumnDef<Task>[] = [
   //   enableSorting: false,
   //   enableHiding: false,
   // },
-  {
-    accessorKey: "image",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Card" />
-    ),
-    cell: ({ row }) => {
-      const image: any = row.getValue("image");
+  // {
+  //   accessorKey: "image",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Card" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     const image: any = row.getValue("image");
 
-      return (
-        <div className="max-w-[56px]">
-          <Image
-            src={image.thumbnail.url}
-            alt={row.getValue("title")}
-            width={628}
-            height={874}
-          />
-        </div>
-      );
-    },
-    enableSorting: false,
-    enableHiding: false,
-  },
+  //     return (
+  //       <div className="max-w-[56px]">
+  //         <Image
+  //           src={image.thumbnail.url}
+  //           alt={row.getValue("title")}
+  //           width={628}
+  //           height={874}
+  //         />
+  //       </div>
+  //     );
+  //   },
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
+  // {
+  //   accessorKey: "title",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Elestral" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     // const label = labels.find((label) => label.value === row.original.label);
+
+  //     return (
+  //       <div className="flex space-x-2">
+  //         {/* {label && <Badge variant="outline">S</Badge>} */}
+  //         <span className="max-w-[500px] truncate font-medium">
+  //           {row.getValue("title")}
+  //         </span>
+  //       </div>
+  //     );
+  //   },
+  // },
   {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Elestral" />
+      <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
       // const label = labels.find((label) => label.value === row.original.label);
@@ -75,21 +93,23 @@ export const columns: ColumnDef<Task>[] = [
         <div className="flex space-x-2">
           {/* {label && <Badge variant="outline">S</Badge>} */}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.getValue("name")}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "set",
+    accessorKey: "craft",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Set" />
+      <DataTableColumnHeader column={column} title="Craft" />
     ),
     cell: ({ row }) => {
-      const set = sets.find((set) => set.value === row.getValue("set"));
+      const craft = crafts.find(
+        (craft) => craft.value === row.getValue("craft")
+      );
 
-      if (!set) {
+      if (!craft) {
         return null;
       }
 
@@ -98,7 +118,7 @@ export const columns: ColumnDef<Task>[] = [
           {/* {set.icon && (
             <set.icon className="w-4 h-4 mr-2 text-muted-foreground" />
           )} */}
-          <span>{set.label}</span>
+          <span>{craft.label}</span>
         </div>
       );
     },
@@ -106,33 +126,33 @@ export const columns: ColumnDef<Task>[] = [
       return value.includes(row.getValue(id));
     },
   },
-  {
-    accessorKey: "edition",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Edition" />
-    ),
-    cell: ({ row }) => {
-      const edition = editions.find(
-        (edition) => edition.value === row.getValue("edition")
-      );
+  // {
+  //   accessorKey: "edition",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Edition" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     const edition = editions.find(
+  //       (edition) => edition.value === row.getValue("edition")
+  //     );
 
-      if (!edition) {
-        return null;
-      }
+  //     if (!edition) {
+  //       return null;
+  //     }
 
-      return (
-        <div className="flex items-center whitespace-nowrap">
-          {/* {edition.icon && (
-            <edition.icon className="w-4 h-4 mr-2 text-muted-foreground" />
-          )} */}
-          <span>{edition.label}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
+  //     return (
+  //       <div className="flex items-center whitespace-nowrap">
+  //         {/* {edition.icon && (
+  //           <edition.icon className="w-4 h-4 mr-2 text-muted-foreground" />
+  //         )} */}
+  //         <span>{edition.label}</span>
+  //       </div>
+  //     );
+  //   },
+  //   filterFn: (row, id, value) => {
+  //     return value.includes(row.getValue(id));
+  //   },
+  // },
   // {
   //   accessorKey: "status",
   //   header: ({ column }) => (
@@ -187,33 +207,33 @@ export const columns: ColumnDef<Task>[] = [
   //     return value.includes(row.getValue(id));
   //   },
   // },
-  {
-    accessorKey: "registeredCount",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Pulled"
-        className="justify-center"
-      />
-    ),
-    cell: ({ row }) => {
-      return (
-        <span className="flex justify-center">
-          {row.getValue("registeredCount")}
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: "registered",
-    header: ({ column }) => <></>,
-    cell: ({ row }) => {
-      return <></>;
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
+  // {
+  //   accessorKey: "registeredCount",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader
+  //       column={column}
+  //       title="Pulled"
+  //       className="justify-center"
+  //     />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <span className="flex justify-center">
+  //         {row.getValue("registeredCount")}
+  //       </span>
+  //     );
+  //   },
+  // },
+  // {
+  //   accessorKey: "registered",
+  //   header: ({ column }) => <></>,
+  //   cell: ({ row }) => {
+  //     return <></>;
+  //   },
+  //   filterFn: (row, id, value) => {
+  //     return value.includes(row.getValue(id));
+  //   },
+  // },
   // {
   //   accessorKey: "releaseDate",
   //   header: ({ column }) => (
@@ -223,34 +243,33 @@ export const columns: ColumnDef<Task>[] = [
   //     return row.getValue("releaseDate");
   //   },
   // },
-  {
-    accessorKey: "populationCount",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Population"
-        className="justify-center"
-      />
-    ),
-    cell: ({ row }) => {
-      return (
-        <span className="flex justify-center">
-          {row.getValue("populationCount")}
-        </span>
-      );
-    },
-  },
-
-  {
-    accessorKey: "product",
-    header: ({ column }) => <></>,
-    cell: ({ row }) => {
-      return <></>;
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
+  // {
+  //   accessorKey: "populationCount",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader
+  //       column={column}
+  //       title="Population"
+  //       className="justify-center"
+  //     />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <span className="flex justify-center">
+  //         {row.getValue("populationCount")}
+  //       </span>
+  //     );
+  //   },
+  // },
+  // {
+  //   accessorKey: "product",
+  //   header: ({ column }) => <></>,
+  //   cell: ({ row }) => {
+  //     return <></>;
+  //   },
+  //   filterFn: (row, id, value) => {
+  //     return value.includes(row.getValue(id));
+  //   },
+  // },
   // {
   //   id: "actions",
   //   cell: ({ row }) => <DataTableRowActions row={row} />,

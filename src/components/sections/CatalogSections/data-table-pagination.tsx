@@ -29,7 +29,9 @@ export function DataTablePagination<TData>({
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div> */}
       <div className="flex items-center flex-1 gap-x-2">
-        <p className="hidden text-sm font-medium sm:block">Cards per page</p>
+        <p className="hidden text-sm font-medium sm:block">
+          Astronauts per page
+        </p>
         <Select
           value={`${table.getState().pagination.pageSize}`}
           onValueChange={(value) => {
