@@ -14,10 +14,10 @@ import Router from "next/router";
 import { useEffect } from "react";
 
 const sidebarNavItems = [
-  {
-    title: "Profile",
-    href: "/profile",
-  },
+  // {
+  //   title: "Profile",
+  //   href: "/profile",
+  // },
   {
     title: "Astronauts",
     href: "/astronauts",
@@ -55,17 +55,13 @@ const AppLayout = ({ meta, children }: AppLayoutProps) => {
             <div className="flex flex-row items-center gap-4">
               <ModeToggle />
               <UserNav />
-              {/* <Avatar className="w-6 h-6">
-                <AvatarImage src={user?.avatar} alt={user!.name} />
-                <AvatarFallback>{user?.name.substring(0, 1)}</AvatarFallback>
-              </Avatar> */}
             </div>
           </div>
           <Separator className="my-6" />
           <div className="flex flex-col flex-1 space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
             <aside className="flex flex-row -mx-4 lg:flex-col lg:w-1/5">
               <SidebarNav items={sidebarNavItems} />
-              <div className="ml-2 lg:mt-1 lg:ml-0">
+              <div className="hidden ml-2 lg:mt-1 lg:ml-0 lg:block">
                 <Button
                   variant={"ghost"}
                   onClick={() => {
