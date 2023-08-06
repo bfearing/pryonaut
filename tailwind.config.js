@@ -72,7 +72,7 @@ module.exports = {
       },
       backgroundImage: {
         space:
-          "linear-gradient(90deg, rgba(0,0,0,0.5), transparent), url('/images/space-1.png')",
+          "linear-gradient(90deg, rgba(0,0,0,0.5), transparent), url('/images/space-bg.png')",
       },
     },
   },

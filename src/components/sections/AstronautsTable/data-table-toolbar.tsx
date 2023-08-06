@@ -1,16 +1,10 @@
 "use client";
 
-import {
-  Cross2Icon,
-  GridIcon,
-  LayoutIcon,
-  MixerHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { Cross2Icon, GridIcon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "./data-table-view-options";
 
 import { crafts } from "@/data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
@@ -45,13 +39,6 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {/* {table.getColumn("status") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statuses}
-          />
-        )} */}
         {table.getColumn("craft") && (
           <DataTableFacetedFilter
             column={table.getColumn("craft")}
@@ -59,34 +46,6 @@ export function DataTableToolbar<TData>({
             options={crafts}
           />
         )}
-        {/* {table.getColumn("edition") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("edition")}
-            title="Edition"
-            options={editions}
-          />
-        )} */}
-        {/* {table.getColumn("registered") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("registered")}
-            title="Status"
-            options={discovered}
-          />
-        )} */}
-        {/* {table.getColumn("product") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("product")}
-            title="Type"
-            options={product}
-          />
-        )} */}
-        {/* {table.getColumn("priority") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
-          />
-        )} */}
         {isFiltered && (
           <Button
             variant="ghost"
@@ -99,7 +58,6 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-2">
-        {/* <DataTableViewOptions table={table} /> */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="flex h-8 ml-auto">

@@ -1,8 +1,8 @@
 export const siteConfig = {
-  name: "Pryonaut | Pryon Astronaut Tracker",
+  title: "Pyronaut | Trusted Space Answers",
+  description: "Trusted answers for all of your astro-knowledge needs.",
+  ogImage: "/images/space-bg.png",
   url: "https://www.pryonaut.com",
-  ogImage: "/og-image.jpeg",
-  description: "Track active astronauts and the latest ISS location.",
 };
 
 export type SiteConfig = typeof siteConfig;

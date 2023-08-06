@@ -1,15 +1,12 @@
-import Loading from "@/components/loading";
+import Loading from "@/components/elements/loading";
+import Logo from "@/components/elements/logo";
+import Metadata from "@/components/elements/metadata";
 import { ModeToggle } from "@/components/mode-toggle";
-import SiteFooter from "@/components/sections/GlobalSections/SiteFooter";
-import SiteFooter2 from "@/components/sections/GlobalSections/SiteFooter2";
-import SiteFooter3 from "@/components/sections/GlobalSections/SiteFooter3";
-import SiteHeader from "@/components/sections/GlobalSections/SiteHeader";
-import { SidebarNav } from "@/components/sidebar-nav";
+import { SidebarNav } from "@/components/navs/sidebar-nav";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Toaster } from "@/components/ui/toaster";
+import { UserNav } from "@/components/navs/user-nav";
 import useUser from "@/data/use-user";
 import { logout } from "@/lib/auth";
 import { ThemeProvider } from "next-themes";
@@ -32,10 +29,11 @@ const sidebarNavItems = [
 ];
 
 interface AppLayoutProps {
+  meta: { title: string; description: string; ogImage: string };
   children: React.ReactNode;
 }
 
-const AppLayout = ({ children }: AppLayoutProps) => {
+const AppLayout = ({ meta, children }: AppLayoutProps) => {
   const { user, loading, loggedOut, mutate } = useUser();
 
   // if logged out, redirect to the homepage
@@ -49,36 +47,18 @@ const AppLayout = ({ children }: AppLayoutProps) => {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <Metadata meta={meta} />
       <div className="flex min-h-screen bg-black bg-cover bg-space">
         <div className="flex flex-col flex-1 p-5 m-5 space-y-6 bg-white sm:p-10 dark:bg-black rounded-2xl">
           <div className="flex items-center justify-between">
-            <div className="relative flex items-center text-2xl font-bold">
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="-10.5 -9.45 21 18.9"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="flex w-6 h-6 mr-2 animate-[spin_3s_linear_infinite]"
-              >
-                <circle cx="0" cy="0" r="2" fill="currentColor"></circle>
-                <g stroke="currentColor" strokeWidth="1" fill="none">
-                  <ellipse rx="10" ry="4.5"></ellipse>
-                  <ellipse rx="10" ry="4.5" transform="rotate(60)"></ellipse>
-                  <ellipse rx="10" ry="4.5" transform="rotate(120)"></ellipse>
-                </g>
-              </svg>
-              <h2 className="tracking-tight">Pryonaut</h2>
-            </div>
-            {/* <p className="text-muted-foreground">
-              Trusted data for all of your astro-knowledge needs.
-            </p> */}
+            <Logo />
             <div className="flex flex-row items-center gap-4">
               <ModeToggle />
-              <Avatar className="w-6 h-6">
+              <UserNav />
+              {/* <Avatar className="w-6 h-6">
                 <AvatarImage src={user?.avatar} alt={user!.name} />
                 <AvatarFallback>{user?.name.substring(0, 1)}</AvatarFallback>
-              </Avatar>
+              </Avatar> */}
             </div>
           </div>
           <Separator className="my-6" />
@@ -90,7 +70,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                   variant={"ghost"}
                   onClick={() => {
                     logout();
-                    mutate(undefined); // optimistically update the data and revalidate
+                    mutate(undefined);
                     Router.replace("/");
                   }}
                 >
@@ -98,7 +78,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
                 </Button>
               </div>
             </aside>
-            <main className="flex-1">{children}</main>
+            <main className="flex-1">
+              <div className="flex-1 lg:max-w-2xl">
+                <div className="space-y-6">{children}</div>
+              </div>
+            </main>
           </div>
         </div>
       </div>

@@ -1,14 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  BarChartIcon,
-  Crosshair2Icon,
-  FrameIcon,
-  LockClosedIcon,
-  LockOpen1Icon,
-  LockOpen2Icon,
-  MagnifyingGlassIcon,
-  SymbolIcon,
-} from "@radix-ui/react-icons";
+import { SymbolIcon } from "@radix-ui/react-icons";
 
 const OverviewStatCards = ({ cards, isLoading }: any) => {
   return (

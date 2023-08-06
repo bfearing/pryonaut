@@ -13,9 +13,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
-import Image from "next/image";
-
 import {
   Table,
   TableBody,
@@ -24,21 +21,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import { Astros, People } from "@/data/schema";
-import { crafts } from "@/data/data";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { getEdition, getSet } from "@/lib/utils";
+import { People } from "@/data/schema";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -60,7 +51,6 @@ export function DataTable<
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [layout, setLayout] = React.useState<string>("Table");
-  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -119,8 +109,6 @@ export function DataTable<
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    // onClick={() => router.push(`/catalog/${row.original.id}`)}
-                    // className="cursor-pointer"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
@@ -152,38 +140,18 @@ export function DataTable<
 
             return (
               <Card key={row.id} className="group">
-                {/* <Link href={`/catalog/${data.id}`}> */}
-                {/* <CardContent className="relative p-0"> */}
-                {/* <Image
-                      src={data.image.large.url}
-                      alt={data.title}
-                      width={733}
-                      height={1000}
-                      className="w-full h-full"
-                    /> */}
-                {/* </CardContent> */}
                 <CardFooter className="items-end justify-between px-4 py-4">
                   <div className="flex flex-col mr-2">
                     <CardTitle className="mb-0.5 text-xl leading-snug">
                       {data.name}
                     </CardTitle>
                     <CardDescription className="flex flex-col text-sm">
-                      {/* <span className="line-clamp-1">{getSet(data.set)}</span> */}
                       <span className="mt-0.5 text-xs text-muted-foreground line-clamp-1">
                         {data.craft}
                       </span>
                     </CardDescription>
                   </div>
-                  {/* <div className="text-right">
-                      <p className="text-lg font-semibold whitespace-nowrap">
-                        {data.registeredCount} of {data.populationCount}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        registered
-                      </p>
-                    </div> */}
                 </CardFooter>
-                {/* </Link> */}
               </Card>
             );
           })}
