@@ -11,7 +11,7 @@ const AuthLayout = ({ meta, children }: AuthLayoutProps) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Metadata meta={meta} />
-      <main className="container relative grid flex-col items-center justify-center h-screen bg-cover lg:max-w-none lg:grid-cols-2 lg:px-0 bg-space lg:bg-none">
+      <main className="p-2.5 sm:p-5 relative grid flex-col items-center justify-center bg-cover h-screen max-h-[-webkit-fill-available] lg:max-w-none lg:grid-cols-2 lg:px-0 bg-space lg:bg-none">
         {children}
       </main>
       <TailwindIndicator />
