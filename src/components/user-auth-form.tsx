@@ -5,19 +5,26 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { login } from "@/lib/auth";
+import useUser from "@/data/use-user";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [email, setEmail] = React.useState<string>("");
+  const { mutate } = useUser();
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
 
     setTimeout(() => {
+      login(email);
+      mutate(); // after logging in, we revalidate the SWR
+
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
   }
 
   return (
@@ -35,10 +42,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
             />
           </div>
-          <Button disabled={isLoading}>
+          <Button disabled={isLoading || !email}>
             {isLoading && (
               <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
             )}
@@ -46,7 +55,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </Button>
         </div>
       </form>
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -62,8 +71,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         ) : (
           <Icons.gitHub className="w-4 h-4 mr-2" />
         )}{" "}
-        Github
-      </Button>
+        <Icons.gitHub className="w-4 h-4 mr-2" /> Github
+      </Button> */}
     </div>
   );
 }

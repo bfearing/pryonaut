@@ -53,8 +53,9 @@ import Link from "next/link";
 import Head from "next/head";
 import Layout from "@/layouts/Layout";
 import AppLayout from "@/layouts/AppLayout";
-import { Crosshair2Icon } from "@radix-ui/react-icons";
+import { Crosshair2Icon, GlobeIcon, RocketIcon } from "@radix-ui/react-icons";
 import { Separator } from "@/components/ui/separator";
+import { TypeAnimation } from "react-type-animation";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -68,13 +69,13 @@ const AstroCards = [
     title: "Astronauts in Space",
     count: 0,
     description: "",
-    icon: Crosshair2Icon,
+    icon: GlobeIcon,
   },
   {
     title: "Crafts in Space",
     count: 0,
     description: "",
-    icon: Crosshair2Icon,
+    icon: RocketIcon,
   },
 ];
 
@@ -260,7 +261,8 @@ export default function DashboardPage({ astros }: { astros: Astros }) {
           <div>
             <h3 className="text-lg font-medium">Astronauts</h3>
             <p className="text-sm text-muted-foreground">
-              How many humans are in space right now?
+              Over 600 people have reached Earth orbit. How many humans are in
+              space right now?
             </p>
           </div>
           <Separator />

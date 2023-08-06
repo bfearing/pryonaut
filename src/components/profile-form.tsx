@@ -26,6 +26,9 @@ import {
 } from "@/components/ui/select";
 // import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast";
+import { Label } from "./ui/label";
+import useUser from "@/data/use-user";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const profileFormSchema = z.object({
   username: z
@@ -63,6 +66,7 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export function ProfileForm() {
+  const { user } = useUser();
   // const form = useForm<ProfileFormValues>({
   //   resolver: zodResolver(profileFormSchema),
   //   defaultValues,
@@ -86,7 +90,18 @@ export function ProfileForm() {
   // }
 
   return (
-    <p>Profile form: TODO</p>
+    <div className="flex flex-col gap-8">
+      <div>
+        <Label htmlFor="email">Email</Label>
+        <Input
+          className="mt-2"
+          type="email"
+          id="email"
+          value={user!.email}
+          disabled
+        />
+      </div>
+    </div>
     // <Form {...form}>
     //   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
     //     <FormField

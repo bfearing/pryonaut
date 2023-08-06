@@ -44,7 +44,7 @@ import { z } from "zod";
 import { Astros, ISSNow, People, atrosSchema } from "@/data/schema";
 import { DataTable } from "@/components/sections/CatalogSections/data-table";
 import { columns } from "@/components/sections/CatalogSections/columns";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import qs from "qs";
 import { getAstros } from "@/lib/open-notify";
 import { Widget } from "@typeform/embed-react";
@@ -56,11 +56,30 @@ import AppLayout from "@/layouts/AppLayout";
 import { Crosshair2Icon } from "@radix-ui/react-icons";
 import { Separator } from "@/components/ui/separator";
 import useSWR from "swr";
+import World from "@/components/globe";
+import { TypeAnimation } from "react-type-animation";
+// import GlobeMap from "@/components/globe";
+// import ReactGlobe from "react-globe";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app using the components.",
 };
+
+const ISSCards = [
+  {
+    title: "Latitute",
+    count: "0",
+    description: "",
+    icon: Crosshair2Icon,
+  },
+  {
+    title: "Longitute",
+    count: "0",
+    description: "",
+    icon: Crosshair2Icon,
+  },
+];
 
 // const pulls = getCardPulls();
 
@@ -70,6 +89,60 @@ export default function ISSPage() {
   const { data, error, isLoading } = useSWR<ISSNow>("/api/iss", fetcher, {
     refreshInterval: 1000,
   });
+  const [issSummary, setISSSummary] = useState(ISSCards);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+
+  // const [location, setLocation] = useState<ISSNow>();
+
+  const updISSCounts = (iss: ISSNow) => {
+    const counts = [iss.iss_position.latitude, iss.iss_position.longitude];
+
+    let updSummary = issSummary.map((data, i) => {
+      return {
+        ...data,
+        count: counts[i],
+        description: `as of ${new Date(
+          iss.timestamp * 1000
+        ).toLocaleTimeString()}`,
+      };
+    });
+
+    setISSSummary(updSummary);
+  };
+
+  useEffect(() => {
+    if (data) {
+      console.log("data :>> ", data);
+      updISSCounts(data);
+    }
+  }, [data]);
+
+  // const [globeData, setGlobeData] = useState<any>([]);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     fetcher("/api/iss").then((res) => {
+  //       console.log(res, "res");
+  //       setLocation(res);
+  //       setIsLoading(false);
+  //     });
+  //   }, 1000);
+  //   return () => clearInterval(timer);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     setGlobeData([
+  //       {
+  //         color: "white",
+  //         lat: data.iss_position.latitude,
+  //         lng: data.iss_position.longitude,
+  //         size: 0.5,
+  //       },
+  //     ]);
+  //   }
+  // }, [data]);
 
   return (
     <AppLayout>
@@ -104,21 +177,23 @@ export default function ISSPage() {
           <div>
             <h3 className="text-lg font-medium">ISS Location</h3>
             <p className="text-sm text-muted-foreground">
-              The International Space Station is moving at close to 28,000 km/h
-              so its location changes really fast! Where is it right now?
+              The International Space Station is moving at close to 28,000 km/h!
+              Where is it right now?
             </p>
           </div>
           <Separator />
           <div className="space-y-4">
+            <OverviewStatCards cards={issSummary} isLoading={isLoading} />
             <div className="flex-col flex-1 h-full space-y-8 md:flex">
-              {isLoading ? (
+              {isLoading || !data ? (
                 <p>Loading ISS Location</p>
               ) : (
-                <div>
-                  <p>{data.timestamp}</p>
-                  <p>{data.iss_position.latitude}</p>
-                  <p>{data.iss_position.longitude}</p>
-                </div>
+                <Card
+                  className="overflow-hidden aspect-square"
+                  ref={mapContainerRef}
+                >
+                  <World gData={data} container={mapContainerRef} />
+                </Card>
               )}
             </div>
           </div>

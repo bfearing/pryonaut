@@ -120,7 +120,7 @@ export function DataTable<
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                     // onClick={() => router.push(`/catalog/${row.original.id}`)}
-                    className="cursor-pointer"
+                    // className="cursor-pointer"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
