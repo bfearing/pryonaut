@@ -8,8 +8,8 @@ import { TypeAnimation } from "react-type-animation";
 import Logo from "@/components/elements/logo";
 
 export const metadata = {
-  title: "Login | Pryonaut",
-  description: "Login to explore space knowledge.",
+  title: "",
+  description: "",
   ogImage: "",
 };
 
