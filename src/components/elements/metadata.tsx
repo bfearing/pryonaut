@@ -16,7 +16,7 @@ const Metadata = ({ meta }: { meta: MetaProps }) => (
     <title>{meta && meta.title ? meta.title : siteConfig.title}</title>
     <meta
       property="og:title"
-      content={meta ? meta.title : siteConfig.title}
+      content={meta && meta.title ? meta.title : siteConfig.title}
       key="title"
     />
     <meta
