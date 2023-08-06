@@ -49,7 +49,7 @@ const AppLayout = ({ meta, children }: AppLayoutProps) => {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Metadata meta={meta} />
       <div className="flex min-h-screen bg-black bg-cover bg-space">
-        <div className="flex flex-col flex-1 p-5 m-2.5 sm:m-5 space-y-6 bg-white sm:p-10 dark:bg-black rounded-2xl">
+        <div className="flex flex-col flex-1 p-5 m-2.5 sm:m-5 space-y-6 bg-white sm:p-10 dark:bg-black rounded-2xl w-[calc(100vw-20px)] sm:w-[calc(100vw-40px)]">
           <div className="flex items-center justify-between">
             <Logo />
             <div className="flex flex-row items-center gap-4">
