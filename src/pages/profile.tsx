@@ -17,7 +17,7 @@ const ProfilePage = () => {
     <AppLayout meta={metadata}>
       <PageHeader
         title={`Welcome, ${user && user.name}!`}
-        description="Have a look around for trusted space answers. Use the sidebar menu
+        description="Have a look around for trusted space answers. Use the menu
               to view a list of all current, space-faring astronauts as well as
               the location of the International Space Station in real-time."
       />
