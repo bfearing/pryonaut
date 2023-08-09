@@ -49,7 +49,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </div>
           <Button disabled={isLoading || !email}>
             {isLoading && (
-              <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
+              <Icons.spinner
+                className="w-4 h-4 mr-2 animate-spin"
+                id="login-button"
+              />
             )}
             Sign In with Email
           </Button>
