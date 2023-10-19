@@ -10,7 +10,7 @@ import { ThemeProvider } from "next-themes";
 const sidebarNavItems = [
   {
     title: "Profile",
-    href: "/",
+    href: "/profile",
   },
   {
     title: "Astronauts",
