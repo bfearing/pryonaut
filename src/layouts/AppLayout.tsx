@@ -1,23 +1,17 @@
-import Loading from "@/components/elements/loading";
 import Logo from "@/components/elements/logo";
 import Metadata from "@/components/elements/metadata";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SidebarNav } from "@/components/navs/sidebar-nav";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { UserNav } from "@/components/navs/user-nav";
-import useUser from "@/data/use-user";
-import { logout } from "@/lib/auth";
+import { UserButton } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
-import Router from "next/router";
-import { useEffect } from "react";
 
 const sidebarNavItems = [
-  // {
-  //   title: "Profile",
-  //   href: "/profile",
-  // },
+  {
+    title: "Profile",
+    href: "/",
+  },
   {
     title: "Astronauts",
     href: "/astronauts",
@@ -34,16 +28,22 @@ interface AppLayoutProps {
 }
 
 const AppLayout = ({ meta, children }: AppLayoutProps) => {
-  const { user, loading, loggedOut, mutate } = useUser();
+  // const { isLoaded, isSignedIn, user } = useUser();
+
+  // if (!isLoaded || !isSignedIn) {
+  //   return null;
+  // }
+
+  // const { user, loading, loggedOut, mutate } = useUser();
 
   // if logged out, redirect to the homepage
-  useEffect(() => {
-    if (loggedOut) {
-      Router.replace("/");
-    }
-  }, [loggedOut]);
-  if (loggedOut) return <Loading text="redirecting..." />;
-  if (loading) return <Loading text="loading..." />;
+  // useEffect(() => {
+  //   if (loggedOut) {
+  //     Router.replace("/");
+  //   }
+  // }, [loggedOut]);
+  // if (loggedOut) return <Loading text="redirecting..." />;
+  // if (loading) return <Loading text="loading..." />;
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -54,7 +54,13 @@ const AppLayout = ({ meta, children }: AppLayoutProps) => {
             <Logo />
             <div className="flex flex-row items-center gap-4">
               <ModeToggle />
-              <UserNav />
+              {/* <UserNav /> */}
+              <UserButton
+                userProfileMode="modal"
+                // userProfileUrl="/user"
+                afterSignOutUrl="/"
+                afterMultiSessionSingleSignOutUrl="/"
+              />
             </div>
           </div>
           <Separator className="my-6" />
@@ -62,7 +68,7 @@ const AppLayout = ({ meta, children }: AppLayoutProps) => {
             <aside className="flex flex-row -mx-4 lg:flex-col lg:w-1/5">
               <SidebarNav items={sidebarNavItems} />
               <div className="hidden ml-2 lg:mt-1 lg:ml-0 lg:block">
-                <Button
+                {/* <Button
                   variant={"ghost"}
                   onClick={() => {
                     logout();
@@ -71,7 +77,7 @@ const AppLayout = ({ meta, children }: AppLayoutProps) => {
                   }}
                 >
                   Logout
-                </Button>
+                </Button> */}
               </div>
             </aside>
             <main className="flex-1">

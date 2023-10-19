@@ -1,9 +1,10 @@
-import { Input } from "@/components/ui/input";
+import { useUser } from "@clerk/nextjs";
+import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import useUser from "@/data/use-user";
 
 export function ProfileForm() {
-  const { user } = useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
+  console.log(user, "user");
 
   return (
     <div className="flex flex-col gap-8">
@@ -13,7 +14,7 @@ export function ProfileForm() {
           className="mt-2"
           type="email"
           id="email"
-          value={user!.email}
+          value={user?.primaryEmailAddress?.emailAddress}
           disabled
         />
       </form>
