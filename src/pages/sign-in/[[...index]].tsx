@@ -14,7 +14,7 @@ export const metadata = {
 export default function AuthenticationPage() {
   const { isLoaded, isSignedIn, user } = useUser();
 
-  if (!isLoaded) return <Loading text="loading..." />;
+  // if (!isLoaded) return <Loading text="loading..." />;
 
   return (
     <AuthLayout meta={metadata}>
@@ -40,7 +40,7 @@ export default function AuthenticationPage() {
       </div>
       <div className="m-2.5 p-10 bg-background rounded-2xl">
         <div className="mx-auto flex w-full flex-col justify-center items-center space-y-6">
-          <SignIn />
+          {isLoaded ? <SignIn /> : <Loading text="loading..." />}
           <p className="px-8 text-sm text-center text-muted-foreground w-[360px]">
             By clicking continue, you agree to our{" "}
             <Link
