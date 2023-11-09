@@ -1,6 +1,6 @@
 Welcome to the Pryonaut, where you can find trusted answers to all your space questions.
 
-## 🎯 Getting Started
+## 🎯 Getting Startedd
 
 To get started:
 
